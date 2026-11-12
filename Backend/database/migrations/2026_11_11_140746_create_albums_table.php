@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('albums', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('artist_id')->constrained('artists')->onDelete('cascade');
+            $table->foreignId('artist_id')->constrained()->cascadeOnDelete();
             $table->string('title');
-            $table->year('release_year')->nullable();
             $table->string('cover')->nullable();
+            $table->date('release_date')->nullable();
             $table->timestamps();
         });
     }
