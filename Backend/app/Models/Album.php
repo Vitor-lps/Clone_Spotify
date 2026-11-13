@@ -18,6 +18,12 @@ class Album extends Model
         'artist_id', 'title', 'cover', 'release_date'
     ];
 
+    protected function casts(): array {
+        return[
+            'release_date' => 'date',
+        ];
+    }
+
 
 public function artist(): BelongsTo
 {
@@ -29,7 +35,7 @@ public function songs(): HasMany
     return $this->hasMany(Song::class);
 }
 
-public function playlists(): Attribute
+public function title(): Attribute
 {
     return Attribute::make(
         set: fn ($value) => strtoupper($value),
