@@ -1,0 +1,25 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #0b0b0d;
+  --color-surface: #141417;
+  --color-accent: #1ed760;
+  --color-cream: #f4f1ea;
+  --color-muted: #8b8b8b;
+  --font-display: 'Outfit', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-display);
+}
+
+/* ===== FUNDO DO LOGIN ===== */
+.fundo-login {
+  background-image: url('/kokushibo.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
