@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify'
 import api from "../services/api";
 import HeroButton from "../components/HeroButton";
+
 
 export default function Login() {
     const navigate = useNavigate()
@@ -71,6 +72,13 @@ export default function Login() {
                 <HeroButton type="submit" disabled={loading}>
                     {loading ? 'Entrando...' : 'Entrar'}
                 </HeroButton>
+
+                <p className="mt-6 text-center text-sm text-muted">
+                    Não tem conta?{' '}
+                    <Link to="/register" className="text-[#F87171] hover:underline">
+                    Cadastre-se
+                    </Link>
+                </p>
             </form>
         </main>
     )
