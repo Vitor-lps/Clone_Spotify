@@ -30,11 +30,21 @@ export default function Login() {
     }
 
     return (
-        <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-ink via-surface to-ink px-6">
+        <main className="fundo-login flex min-h-screen items-center justify-center px-6">
+            
+            <video src="/kokushibo2.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 h-full w-full object-cover"/>
+
+            <div className="absolute inset-0 bg-black/50"></div>
+
             <form onSubmit={hadleSubmit}
-            className="w-full max-w-sm rounded-3xl border border-white/10 bg-surface p-8">
+            className="relative z-10 w-full max-w-sm rounded-3xl border border-white/10 bg-surface/ backdrop-blur-md p-8">
                 <h1 className="text-3xl font-black">Spoti
-                    <span className="text-accent">Clone</span>
+                    <span className="text-[#A855F7]">Clone</span>
                 </h1>
                 <p className="mt-1 text-sm text-muted">Entre para ouvir suas músicas</p>
 

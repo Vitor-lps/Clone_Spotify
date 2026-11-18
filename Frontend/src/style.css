@@ -15,11 +15,3 @@ body {
   color: var(--color-cream);
   font-family: var(--font-display);
 }
-
-/* ===== FUNDO DO LOGIN ===== */
-.fundo-login {
-  background-image: url('/kokushibo.gif');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}

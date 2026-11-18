@@ -4,7 +4,9 @@ import Login from './pages/Login'
 export default function App() {
   return(
     <BrowserRouter>
-    <Route path="/login" element={<Login/>}/>
+    <Routes>
+    <Route path="/" element={<Login/>}/>
+    </Routes>
     </BrowserRouter>
   )
 }
