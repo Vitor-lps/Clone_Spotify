@@ -54,7 +54,7 @@ export default function Register() {
 
             <form
                 onSubmit={handleSubmit}
-                className="relative z-10 w-full max-w-sm rounded-3xl border border-white/10 bg-surface/80 backdrop-blur-md p-8"
+                className="relative z-10 w-full max-w-sm rounded-3xl border border-white/10 bg-surface/ backdrop-blur-md p-8"
             >
                 <h1 className="text-3xl font-black">
                     Spoti<span className="text-[#A855F7]">Clone</span>

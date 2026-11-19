@@ -6,14 +6,17 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token')
-    if (token) config.headers.Authorization = 'Bearer' + token
+    if (token) config.headers.Authorization = 'Bearer ' + token
     return config
 });
 
 api.interceptors.response.use(
     (res) => res,
     (err) => {
-        if (err.response?.status === 401) {
+        const url = err.config?.url || ''
+        const isAuth = url.includes('login') || url.includes('register')
+
+        if (err.response?.status === 401 && !isAuth) {
             localStorage.removeItem('token')
             window.location.href = '/login'
         }

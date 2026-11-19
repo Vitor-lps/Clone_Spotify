@@ -1,11 +1,12 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-ink: #0b0b0d;
-  --color-surface: #141417;
-  --color-accent: #1ed760;
-  --color-cream: #f4f1ea;
-  --color-muted: #8b8b8b;
+  --color-ink: #0a0510;
+  --color-surface: #150a20;
+  --color-accent: #c41e3a;
+  --color-secondary: #6b21a8;
+  --color-cream: #f0e6ff;
+  --color-muted: #7a6b8a;
   --font-display: 'Outfit', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 }
@@ -14,4 +15,101 @@ body {
   background: var(--color-ink);
   color: var(--color-cream);
   font-family: var(--font-display);
+}
+
+/* ===== SCROLLBAR KOKUSHIBO ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6b21a8, #c41e3a);
+  border-radius: 8px;
+}
+
+/* ===== GRADIENTE DE FUNDO ===== */
+.fundo-kokushibo {
+  background:
+    radial-gradient(ellipse at 10% 20%, rgba(107, 33, 168, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 80%, rgba(196, 30, 58, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(30, 5, 50, 0.8) 0%, transparent 70%),
+    var(--color-ink);
+}
+
+/* ===== CARD GLOW ===== */
+.card-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(107, 33, 168, 0.4), rgba(196, 30, 58, 0.4));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-glow:hover::before {
+  opacity: 1;
+}
+
+/* ===== PLAY BUTTON ===== */
+.btn-blood {
+  background: linear-gradient(135deg, #c41e3a, #6b21a8);
+  transition: all 0.3s ease;
+}
+
+.btn-blood:hover {
+  box-shadow: 0 8px 32px rgba(196, 30, 58, 0.5);
+  transform: scale(1.05);
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar-kokushibo {
+  background: linear-gradient(180deg, #150a20 0%, #0a0510 100%);
+  border-right: 1px solid rgba(107, 33, 168, 0.15);
+}
+
+/* ===== ANIMAÇÃO DE ENTRADA ===== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim-fade {
+  animation: fadeUp 0.6s ease both;
+}
+
+/* ===== PULSE DOT ===== */
+@keyframes pulse-red {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(196, 30, 58, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(196, 30, 58, 0);
+  }
+}
+
+.pulse-blood {
+  animation: pulse-red 2s ease infinite;
 }
