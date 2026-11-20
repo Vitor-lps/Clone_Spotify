@@ -66,7 +66,7 @@ export default function Home() {
                 <>
                 <section className="mt-8">
                     <h3 className="text-xl font-bold">Músicas em alta</h3>
-                    <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                    <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
                         {songs.map((song) => (
                             <SongCard key={song.id} song={song}/>
                         ))}
@@ -75,7 +75,7 @@ export default function Home() {
 
                 <section className="mt-12">
                     <h3 className="text-xl font-bold">Suas playlists</h3>
-                    <div className="mt-4 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+                    <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
                         {playlists.map((playlist) => (
                             <PlaylistCard key={playlist.id} playlist={playlist}/>
                         ))}
