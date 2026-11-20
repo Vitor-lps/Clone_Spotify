@@ -1,8 +1,9 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import {PlayerProvider} from './context/PlayerContext'
-import ProtectedRoute from './components/ProtecaoRoute'
+import api from './services/api'
 import Sidebar from './components/Sidebar'
 import TopBar from './components/TopBar'
 import PlayerBar from './components/PlayerBar'
@@ -11,13 +12,25 @@ import Register from './pages/Register'
 import Home from './pages/Home'
 import Playlist from './pages/Playlist'
 
+function ProtectedRoute({children}) {
+  const token = localStorage.getItem('token')
+  return token ? children : <Navigate to="/login" replace/>
+}
+
 function AppLayout({children}) {
+  const [playlists, setPlaylists] = useState([])
+
+  useEffect(() => {
+    api.get('/playlists')
+    .then((res) => setPlaylists(res.data.data))
+    .catch(() => {})
+  }, [])
   return (
-    <div className='flex min-h-screen'>
-      <Sidebar/>
+    <div className='flex h-screen overflow-hidden'>
+      <Sidebar playlists={playlists}/>
       <div className='flex min-w-0 flex-1 flex-col'>
         <TopBar/>
-        <main className='flex-1'>{children}</main>
+        <main className='flex-1 overflow-y-auto'>{children}</main>
         <PlayerBar/>
       </div>
     </div>
