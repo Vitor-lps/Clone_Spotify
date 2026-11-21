@@ -1,5 +1,9 @@
 import { usePlayer } from "../context/PlayerContext";
 import { formatDuration } from "../utils/format";
+import { FaVolumeUp, FaVolumeDown, FaVolumeMute } from "react-icons/fa";
+import { FaCirclePlay, FaCirclePause } from "react-icons/fa6";
+import { GrChapterNext, GrChapterPrevious } from "react-icons/gr";
+import { IoIosMusicalNotes } from "react-icons/io";
 
 export default function PlayerBar() {
     const {
@@ -26,7 +30,7 @@ export default function PlayerBar() {
                     {currentSong?.album?.cover ? (
                         <img src={currentSong.album.cover} alt={currentSong.title} className="h-full w-full rounded-lg object-cover" />
                     ) : (
-                        <span className="text-xl">♪</span>
+                        <span className="text-xl"><IoIosMusicalNotes /></span>
                     )}
                 </div>
 
@@ -46,15 +50,15 @@ export default function PlayerBar() {
             <div className="flex flex-col items-center w-[40%]">
                 <div className="flex items-center gap-5">
                     <button onClick={playPrev} className="text-muted transition hover:text-cream">
-                        ⏮
+                        <GrChapterPrevious />
                     </button>
 
                     <button onClick={togglePlay} className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-black transition hover:scale-110">
-                        {isPlaying ? '❚❚' : '▶'}
+                        {isPlaying ? <FaCirclePause /> : <FaCirclePlay />}
                     </button>
 
                     <button onClick={playNext} className="text-muted transition hover:text-cream">
-                        ⏭
+                        <GrChapterNext />
                     </button>
                 </div>
 
@@ -95,7 +99,7 @@ export default function PlayerBar() {
                     onClick={() => changeVolume(volume > 0 ? 0 : 0.8)}
                     className="text-sm text-muted transition hover:text-cream"
                 >
-                    {volume === 0 ? '🔇' : volume < 0.5 ? '🔉' : '🔊'}
+                    {volume === 0 ? <FaVolumeMute /> : volume < 0.5 ? <FaVolumeDown /> : <FaVolumeUp />}
                 </button>
 
                 <div

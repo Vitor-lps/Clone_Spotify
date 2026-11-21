@@ -3,6 +3,7 @@ import { useState } from "react";
 import {toast} from 'react-toastify'
 import api from '../services/api'
 import CriarPlaylist from './CriarPlaylist'
+import { IoMdSearch, IoIosMusicalNotes } from "react-icons/io";
 
 export default function Sidebar({playlists = []}) {
      const [showCriar, setShowCriar] = useState(false)
@@ -12,7 +13,7 @@ export default function Sidebar({playlists = []}) {
         try {
             await api.post('/logout')
         }catch {
-            //ignora
+            
         }
         localStorage.removerItem('token')
         toast.info('Até logo!')
@@ -31,7 +32,7 @@ export default function Sidebar({playlists = []}) {
             <NavLink to="/"
             className={({isActive}) =>
             isActive ? 'flex items-center gap-3 rounded-lg bg-white/10 px-4 py-3 text-sm font-bold text-cream' : 'flex items-center gap-3 rounded-lg px-4 py-3 text-sm text-muted transition hover:text-cream hover:bg-white/5'}>
-                <span className="text-lg">🔍</span>
+                <span className="text-lg"><IoMdSearch /></span>
                 Buscar
             </NavLink>
         </nav>
@@ -58,12 +59,12 @@ export default function Sidebar({playlists = []}) {
                             {playlist.cover ? (
                                 <img src={playlist.cover} alt={playlist.name} className="h-full w-full rounded-md object-cover" />
                             ) : (
-                                <span className="text-sm">♫</span>
+                                <span className="text-sm"><IoIosMusicalNotes /></span>
                             )}
                             </div>
 
                             <div className="min-w-0">
-                                <p className="truncate text-sm font-bold">{playlist.name}</p>]
+                                <p className="truncate text-sm font-bold">{playlist.name}</p>
                                 <p className="truncate text-xs text-muted">
                                     Playlist ° {playlist.total_songs || 0} músicas
                                 </p>

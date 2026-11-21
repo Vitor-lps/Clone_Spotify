@@ -1,7 +1,9 @@
 import { formatDuration } from "../utils/format";
 import {usePlayer} from '../context/PlayerContext'
+import { FaCirclePlay, FaCirclePause } from "react-icons/fa6";
+import { IoIosMusicalNotes } from "react-icons/io";
 
-export default function SongCard({song}) {
+export default function SongCard({song, lista}) {
     const {currentSong, isPlaying, playSong, togglePlay} = usePlayer()
     const isCurrent = currentSong && currentSong.id === song.id
 
@@ -9,7 +11,7 @@ export default function SongCard({song}) {
         if (isCurrent) {
             togglePlay()
         }else {
-            playSong(song)
+            playSong(song, lista)
         }
     }
 
@@ -22,14 +24,14 @@ export default function SongCard({song}) {
 
         {!song.album?.cover && (
             <div className="flex h-full items-center justify-center">
-                <span className="text-5xl opacity-50">♪</span>
+                <span className="text-5xl opacity-50"><IoIosMusicalNotes /></span>
             </div>
         )}
 
         <div className="absolute inset-0 bg-black/40 opacity-0 transition group-hover:opacity-100"/>
 
         <button onClick={handleClick} className="btn-blood absolute bottom-2 right-2 rounded-full px-4 py-2 text-xs font-bold text-white opacity-0 transition group-hover:opacity-100">
-            {isCurrent && isPlaying ? '❚❚' : '▶'}
+            {isCurrent && isPlaying ? <FaCirclePause /> : <FaCirclePlay />}
         </button>
 
         {isCurrent && (

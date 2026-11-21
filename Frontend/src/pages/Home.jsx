@@ -6,6 +6,7 @@ import PlaylistCard from '../components/PlaylistCard'
 import CriarPlaylist from "../components/CriarPlaylist";
 import Skeleton from  '../components/Skeleton'
 import EmptyState from '../components/EstadoVazio'
+import Carrossel from "../components/Carrossel";
 
 export default function Home() {
     const [songs, setSongs] = useState([])
@@ -95,11 +96,13 @@ export default function Home() {
                     </span>
                 </div>
 
-                <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-                    {songs.slice(0, 12).map((song) => (
-                        <SongCard key={song.id} song={song}/>
-                    ))}
-                </div>
+              <Carrossel>
+                {songs.map((song) => (
+                    <div key={song.id} className="w-44 shrink-0">
+                        <SongCard song={song} lista={songs}/>
+                    </div>
+                ))}
+              </Carrossel>
             </section>
 
             <section className="mt-12">
@@ -120,11 +123,13 @@ export default function Home() {
                         </button>
                     </div>
                 ) : (
-                    <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-                        {playlists.map((playlist) => (
-                            <PlaylistCard key={playlist.id} playlist={playlist}/>
-                        ))}
-                    </div>
+                   <Carrossel titulo="Suas Playlists">
+                    {playlists.map((playlist) => (
+                        <div key={playlist.id} className="w-44 shrink-0">
+                            <PlaylistCard playlist={playlist}/>
+                        </div>
+                    ))}
+                   </Carrossel>
                 )}
             </section>
             </>

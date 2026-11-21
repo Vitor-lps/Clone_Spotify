@@ -5,20 +5,19 @@ const PlayerContext = createContext(null)
 export function PlayerProvider({ children }) {
     const audioRef = useRef(null)
     const lastSongRef = useRef(null)
-    const seekingRef = useRef(false)        // ← TRAVA DE SEEK
+    const seekingRef = useRef(false)       
     const [currentSong, setCurrentSong] = useState(null)
     const [isPlaying, setIsPlaying] = useState(false)
     const [progress, setProgress] = useState(0)
     const [volume, setVolume] = useState(0.8)
     const [queue, setQueue] = useState([])
 
-    // Atualiza o progresso (BLOQUEADO durante seek)
     useEffect(() => {
         const audio = audioRef.current
         if (!audio) return
 
         function updateProgress() {
-            if (seekingRef.current) return    // ← NÃO atualiza se está fazendo seek
+            if (seekingRef.current) return    
             setProgress(audio.currentTime)
         }
 
@@ -26,13 +25,11 @@ export function PlayerProvider({ children }) {
         return () => audio.removeEventListener('timeupdate', updateProgress)
     }, [])
 
-    // Aplica o volume
     useEffect(() => {
         const audio = audioRef.current
         if (audio) audio.volume = volume
     }, [volume])
 
-    // Toca quando a música muda
     useEffect(() => {
         const audio = audioRef.current
         if (!audio || !currentSong) return
@@ -70,18 +67,20 @@ export function PlayerProvider({ children }) {
     function playNext() {
         if (queue.length === 0 || !currentSong) return
         const index = queue.findIndex((s) => s.id === currentSong.id)
-        const next = queue[(index + 1) % queue.length]
+        const proximo = index + 1
+        const next = proximo < queue.length ? queue[proximo] : queue[0]
         lastSongRef.current = null
-        setCurrentSong(next)
+        setCurrentSong({...next})
         setProgress(0)
     }
 
     function playPrev() {
         if (queue.length === 0 || !currentSong) return
         const index = queue.findIndex((s) => s.id === currentSong.id)
-        const prev = queue[(index - 1 + queue.length) % queue.length]
+        const anterior = index - 1
+        const prev = anterior >= 0 ? queue[anterior] : queue[queue.length - 1]
         lastSongRef.current = null
-        setCurrentSong(prev)
+        setCurrentSong({...prev})
         setProgress(0)
     }
 
@@ -97,19 +96,13 @@ export function PlayerProvider({ children }) {
 
         const p = Math.max(0, Math.min(1, percent))
         const novoTempo = p * dur
-
-        // ATIVA A TRAVA
         seekingRef.current = true
-
-        // Define a posição
         audio.currentTime = novoTempo
         setProgress(novoTempo)
 
-        // DEPOIS de 300ms, libera a trava e confere se funcionou
         setTimeout(() => {
             seekingRef.current = false
 
-            // Debug: mostra se o seek funcionou
             console.log('depois do seek:', {
                 esperado: novoTempo,
                 real: audio.currentTime,

@@ -11,11 +11,19 @@ export default function Register() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
+    const [erro, setErro] = useState('')
     const [loading, setLoading] = useState(false)
 
     async function handleSubmit(evento) {
         evento.preventDefault()
         setLoading(true)
+        setErro('')
+
+        if (password !== passwordConfirmation) {
+            setErro('As senhas não são iguais')
+            setLoading(false)
+            return
+        }
 
         try {
             await api.post('/register', {
@@ -25,13 +33,20 @@ export default function Register() {
                 password_confirmation: passwordConfirmation
             })
 
-            toast.success('Conta criada com sucesso! Faça login.')
-            navigate('/login')
+            const resposta = await api.post('/login', {email, password})
+
+            localStorage.setItem('token', resposta.data.token)
+
+            toast.success('Conta criada com sucesso!')
+            navigate('/home')
         } catch (erro) {
             if (erro.response?.data?.message) {
-                toast.error(erro.response.data.message)
+               setErro(erro.response.data.message)
+            } else if (erro.response?.data?.errors) {
+                const primeiraErro = Object.values(erro.response.data.errors) [0]
+                setErro(Array.isArray(primeiraErro) ? primeiraErro[0] : primeiraErro)
             } else {
-                toast.error('Erro ao criar conta. Tente novamente.')
+                setErro('Erro ao criar conta. Tente novamente')
             }
         } finally {
             setLoading(false)

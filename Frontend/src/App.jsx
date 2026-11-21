@@ -7,6 +7,7 @@ import api from './services/api'
 import Sidebar from './components/Sidebar'
 import TopBar from './components/TopBar'
 import PlayerBar from './components/PlayerBar'
+import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
@@ -42,10 +43,11 @@ export default function App() {
    <PlayerProvider>
     <BrowserRouter>
     <Routes>
+      <Route path='/' element={<Landing/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path='/register' element={<Register/>} />
 
-      <Route path='/' element={<ProtectedRoute>
+      <Route path='/home' element={<ProtectedRoute>
         <AppLayout>
           <Home/>
         </AppLayout>

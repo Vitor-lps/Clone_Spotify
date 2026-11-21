@@ -24,7 +24,7 @@ export default function Login() {
             localStorage.setItem('token', resposta.data.token)
 
             toast.success('Login com sucesso!');
-            navigate('/')
+            navigate('/home')
         }catch (e) {
              if (e.response) {
                 const status = e.response.status
